@@ -2,33 +2,25 @@ import { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Job from "./Job";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getJobsAction } from "../redux/actions";
 
 const MainSearch = () => {
-  const [query, setQuery] = useState("");
-  const [jobs, setJobs] = useState([]);
+  const [value, setValue] = useState("");
+
+  const joblist = useSelector((state) => state.jobs.joblist);
 
   const navigate = useNavigate();
-
-  const baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search=";
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setQuery(e.target.value);
+    setValue(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20");
-      if (response.ok) {
-        const { data } = await response.json();
-        setJobs(data);
-      } else {
-        alert("Error fetching results");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch(getJobsAction(value));
+    console.log(joblist);
   };
 
   return (
@@ -42,14 +34,14 @@ const MainSearch = () => {
           <Form onSubmit={handleSubmit}>
             <Form.Control
               type="search"
-              value={query}
+              value={value}
               onChange={handleChange}
               placeholder="type and press Enter"
             />
           </Form>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
-          {jobs.map((jobData) => (
+          {joblist.map((jobData) => (
             <Job key={jobData._id} data={jobData} />
           ))}
         </Col>
