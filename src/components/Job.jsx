@@ -8,21 +8,23 @@ const Job = ({ data }) => {
 
   return (
     <Row
-      className="mx-0 mt-3 p-3"
-      style={{ border: "1px solid #00000033", borderRadius: 4 }}
+      className="mx-0 mt-3 py-3 px-0 align-items-center"
+      style={{ border: "1px solid antiquewhite", borderRadius: 15 }}
     >
-      <Col xs={3}>
+      <Col xs={1} className="d-flex align-items-center pl-0">
         <Button
-          className="mr-2"
+          className="d-flex align-items-center savebuttons"
           onClick={() => {
             dispatch({ type: "ADD_TO_FAV", payload: data });
           }}
         >
-          <VscSave />
+          <VscSave style={{ fontSize: "20pt" }} />
         </Button>
+      </Col>
+      <Col xs={3}>
         <Link to={`/${data.company_name}`}>{data.company_name}</Link>
       </Col>
-      <Col xs={9}>
+      <Col xs={8} className="px-0">
         <a href={data.url} target="_blank" rel="noreferrer">
           {data.title}
         </a>
