@@ -22,6 +22,7 @@ export const getJobsAction = (query) => {
 
   return async (dispatch, getState) => {
     console.log("currently fetching jobs...");
+    console.log(getState());
     try {
       const response = await fetch(baseEndpoint + query + "&limit=20");
       if (response.ok) {
@@ -31,6 +32,7 @@ export const getJobsAction = (query) => {
           type: GET_JOBS,
           payload: data,
         });
+        console.log(getState());
       } else {
         alert("Error fetching results");
       }

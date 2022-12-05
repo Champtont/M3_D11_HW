@@ -9,7 +9,7 @@ const jobsReducer = (state = initialState, action) => {
     case GET_JOBS:
       return {
         ...state,
-        jobs: action.payload,
+        joblist: action.payload,
       };
     default:
       return state;

@@ -20,7 +20,6 @@ const MainSearch = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(getJobsAction(value));
-    console.log(joblist);
   };
 
   return (
